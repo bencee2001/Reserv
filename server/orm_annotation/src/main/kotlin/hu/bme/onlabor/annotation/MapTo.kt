@@ -1,4 +1,4 @@
-package hu.bme.onlabor.dal.dbconnection.util
+package hu.bme.onlabor.annotation
 
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.RUNTIME)

@@ -1,4 +1,4 @@
-package hu.bme.onlabor.dal.dbconnection
+package hu.bme.onlabor.dal
 
 import hu.bme.onlabor.dal.model.user.Users
 import org.jetbrains.exposed.sql.Table

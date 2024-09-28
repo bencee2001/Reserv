@@ -1,12 +1,9 @@
 package hu.bme.onlabor
 
-import com.squareup.kotlinpoet.FileSpec
-import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.TypeSpec
-import hu.bme.onlabor.dal.dbconnection.provideDataSource
-import hu.bme.onlabor.dal.dbconnection.tables
+import hu.bme.onlabor.dal.xdbconnection.provideDataSource
+import hu.bme.onlabor.dal.tables
 import hu.bme.onlabor.dal.model.user.User
-import hu.bme.onlabor.dal.model.user.UserDao
+import hu.bme.onlabor.dal.dao.user.UserDao
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -20,7 +17,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.ktor.ext.inject
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
-import java.io.File
 
 fun main() {
 

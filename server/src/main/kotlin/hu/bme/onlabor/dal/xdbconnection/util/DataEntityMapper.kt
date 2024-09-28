@@ -1,6 +1,6 @@
-package hu.bme.onlabor.dal.dbconnection.util
+package hu.bme.onlabor.dal.xdbconnection.util
 
-import hu.bme.onlabor.dal.model.user.Users
+import hu.bme.onlabor.annotation.MapTo
 import org.jetbrains.exposed.sql.Expression
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
