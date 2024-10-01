@@ -29,7 +29,7 @@ object OrmExtFuncGenerator {
         val mapperPaths = dataEntityPropNamePairs.filter { it.mapperPath != null }.map { it.mapperPath }
 
         val rowToDataMapper = """
-                    package hu.bme.onlabor.ext
+                    package $ORM_EXT_PACKAGE
                     
                     import $targetClassPackage.$targetClassName
                     import $dataPackage.$dataClassName
