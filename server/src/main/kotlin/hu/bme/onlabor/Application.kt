@@ -1,9 +1,9 @@
 package hu.bme.onlabor
 
-import hu.bme.onlabor.dal.xdbconnection.provideDataSource
+import hu.bme.onlabor.dal.dbconnection.provideDataSource
 import hu.bme.onlabor.dal.tables
-import hu.bme.onlabor.dal.model.user.User
 import hu.bme.onlabor.dal.dao.user.UserDao
+import hu.bme.onlabor.dal.model.user.User
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -38,10 +38,6 @@ fun Application.module() {
     routing {
         get("/") {
             call.respondText("Ktor: ${Greeting().greet()}")
-            val t = userDao.save(User())
-            println(t)
-            val tt = userDao.getUsers()
-            println(tt)
         }
     }
 }

@@ -1,11 +1,9 @@
 package hu.bme.onlabor.processor.generator
 
 import com.google.devtools.ksp.KspExperimental
-import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.symbol.KSClassDeclaration
-import hu.bme.onlabor.annotation.GenMapper
-import hu.bme.onlabor.annotation.MapperDataSide
-import hu.bme.onlabor.annotation.MapperEntitySide
+import hu.bme.onlabor.annotation.interfaces.AttributeMapper
+import hu.bme.onlabor.processor.dto.DataEntityPropDto
 
 object OrmExtFuncGenerator {
 
@@ -14,37 +12,47 @@ object OrmExtFuncGenerator {
 
     @OptIn(KspExperimental::class)
     fun generateDataEntityMapperExtensionFunction(
-        it: KSClassDeclaration,
+        genMapperKsClass: KSClassDeclaration,
         dataKsClass: KSClassDeclaration,
         entityKsClass: KSClassDeclaration,
-        className: String,
-        dataToEntityPropNamePairs: MutableList<Pair<String, String>>
+        dataEntityPropNamePairs: MutableList<DataEntityPropDto>
     ): String {
-        val genMapperObj = it.getAnnotationsByType(GenMapper::class).first()
-        val classPackage = genMapperObj.filePackage
+        val targetClassPackage = genMapperKsClass.packageName.asString()
+        val targetClassName = genMapperKsClass.toString()
 
         val dataClassName = dataKsClass.simpleName.getShortName()
-        val dataPackage =
-            dataKsClass.getAnnotationsByType(MapperDataSide::class).first().filePackage
+        val dataPackage = dataKsClass.packageName.asString()
 
         val entityClassName = entityKsClass.simpleName.getShortName()
-        val entityPackage =
-            entityKsClass.getAnnotationsByType(MapperEntitySide::class).first().filePackage
+        val entityPackage = entityKsClass.packageName.asString()
+
+        val mapperPaths = dataEntityPropNamePairs.filter { it.mapperPath != null }.map { it.mapperPath }
 
         val rowToDataMapper = """
                     package hu.bme.onlabor.ext
                     
-                    import $classPackage.$className
+                    import $targetClassPackage.$targetClassName
                     import $dataPackage.$dataClassName
                     import $entityPackage.$entityClassName
                     import org.jetbrains.exposed.sql.ResultRow
+                    ${
+                        mapperPaths.joinToString(separator = "\n"){
+                            "import $it"
+                        }
+                    }
                     
-                    fun $className.resultRowTo$dataClassName(row: ResultRow): $dataClassName{
+                    fun $targetClassName.resultRowTo$dataClassName(row: ResultRow): $dataClassName{
                         return $dataClassName(
                             ${
-                                dataToEntityPropNamePairs
-                                    .joinToString(separator = "\n") { (dataName, entityName) ->
-                                        "$dataName = row[$entityClassName.$entityName],"
+                                dataEntityPropNamePairs
+                                    .joinToString(separator = "\n") { (dataName, entityName, mapperPath) ->
+                                        if (mapperPath == null)
+                                            "$dataName = row[$entityClassName.$entityName],"
+                                        else {
+                                            val splitPath = mapperPath.split(".")
+                                            val mapperClass = splitPath.takeLast(1).first()
+                                            "$dataName = $mapperClass.${AttributeMapper.TO_DATA_FUNC}(row[$entityClassName.$entityName]),"
+                                        }
                                     }
                             }
                         )

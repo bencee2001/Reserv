@@ -12,6 +12,20 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["io.ktor.development"] ?: "false"}")
 }
 
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDirs("src/main/kotlin", "build/generated/ksp/main/kotlin")
+    }
+}
+
 dependencies {
     implementation(projects.shared)
     implementation(libs.logback)

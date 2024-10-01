@@ -1,16 +1,14 @@
 package hu.bme.onlabor.dal.model.user
 
-import hu.bme.onlabor.annotation.MapTo
-import hu.bme.onlabor.annotation.MapperDataSide
-import hu.bme.onlabor.annotation.MapperEntitySide
+import hu.bme.onlabor.annotation.annotations.MapTo
+import hu.bme.onlabor.annotation.annotations.MapperDataSide
+import hu.bme.onlabor.annotation.annotations.MapperEntitySide
+import hu.bme.onlabor.dal.dao.user.UserDaoImpl
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 
 @Serializable
-@MapperDataSide(
-    "UserDaoImpl",
-    "hu.bme.onlabor.dal.model.user"
-)
+@MapperDataSide(UserDaoImpl.NAME)
 data class User(
     @MapTo("id")
     var userId: Int? = null,
@@ -23,10 +21,7 @@ data class User(
     var profilePictureUrl: String = "T"
 )
 
-@MapperEntitySide(
-    "UserDaoImpl",
-    "hu.bme.onlabor.dal.model.user"
-)
+@MapperEntitySide("UserDaoImpl")
 object Users : Table() {
     val id = integer(User::userId.name).autoIncrement()
     val name = varchar(User::name.name, 100)

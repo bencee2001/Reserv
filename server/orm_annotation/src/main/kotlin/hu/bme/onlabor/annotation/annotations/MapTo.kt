@@ -1,4 +1,4 @@
-package hu.bme.onlabor.annotation
+package hu.bme.onlabor.annotation.annotations
 
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.RUNTIME)

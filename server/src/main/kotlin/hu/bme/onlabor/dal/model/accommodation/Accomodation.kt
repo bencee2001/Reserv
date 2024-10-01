@@ -1,6 +1,43 @@
 package hu.bme.onlabor.dal.model.accommodation
 
+import hu.bme.onlabor.annotation.annotations.MapTo
+import hu.bme.onlabor.annotation.annotations.MapWith
+import hu.bme.onlabor.annotation.annotations.MapperDataSide
+import hu.bme.onlabor.annotation.annotations.MapperEntitySide
+import hu.bme.onlabor.countries.Country
+import hu.bme.onlabor.dal.dao.accomodation.AccommodationDao
+import hu.bme.onlabor.dal.dao.accomodation.AccommodationDaoImpl
 import kotlinx.serialization.Serializable
+import org.jetbrains.exposed.sql.Table
 
 @Serializable
-class Accommodation
+@MapperDataSide(AccommodationDaoImpl.NAME)
+data class Accommodation(
+    @MapTo("id")
+    var accomId: Int? = null,
+    var name: String = "test",
+    var ownerId: Int,
+    @MapWith(CountryAttributeMapper.PATH)
+    var country: Country,
+    var city: String,
+    var latitude: Long,
+    var longitude: Long,
+    var ratingAvg: Double,
+    var ratingCount: Int
+)
+
+@MapperEntitySide(AccommodationDaoImpl.NAME)
+object Accommodations: Table() {
+    val id = integer(Accommodation::accomId.name).autoIncrement()
+    val name = varchar(Accommodation::name.name, 100)
+    val ownerId = integer(Accommodation::ownerId.name)
+    val country = varchar(Accommodation::country.name, 3)
+    val city = varchar(Accommodation::city.name, 100)
+    val latitude = long(Accommodation::latitude.name)
+    val longitude = long(Accommodation::longitude.name)
+    val ratingAvg = double(Accommodation::ratingAvg.name)
+    val ratingCount = integer(Accommodation::ratingCount.name)
+
+    override val primaryKey: PrimaryKey
+        get() = PrimaryKey(Accommodations.id)
+}
