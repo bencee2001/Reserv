@@ -9,7 +9,7 @@ import io.ktor.server.routing.routing
 
 fun Application.configureRouting(){
     routing {
-        get("/") {
+        get("/Hello") {
             call.respondText("Ktor: ${Greeting().greet()}")
         }
     }

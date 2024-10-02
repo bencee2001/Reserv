@@ -41,6 +41,8 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:0.54.0")
     implementation("org.jetbrains.exposed:exposed-java-time:0.54.0")
 
+    implementation("io.github.smiley4:ktor-swagger-ui:2.2.0")
+
     implementation("com.squareup:kotlinpoet:1.16.0")
 
     implementation(project(":server:orm_annotation"))

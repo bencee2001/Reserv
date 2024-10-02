@@ -8,6 +8,7 @@ import hu.bme.onlabor.plugin.configureDatabases
 import hu.bme.onlabor.plugin.configureKoin
 import hu.bme.onlabor.plugin.configureRouting
 import hu.bme.onlabor.plugin.configureSerialization
+import hu.bme.onlabor.plugin.configureSwagger
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -37,6 +38,7 @@ fun Application.module() {
     configureSerialization()
     configureDatabases()
     configureRouting()
+    configureSwagger()
 }
 
 
