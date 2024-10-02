@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets
 class OrmProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger
-): SymbolProcessor {
+) : SymbolProcessor {
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         logger.info("Process started.")
@@ -37,14 +37,22 @@ class OrmProcessor(
             .getSymbolsWithAnnotation(MapperDataSide::class.qualifiedName!!)
             .filterIsInstance<KSClassDeclaration>()
 
-        logger.info("Found MapperDataSide: ${dataClasses.map { it.simpleName.getShortName() }.toList()}")
+        logger.info(
+            "Found MapperDataSide: ${
+                dataClasses.map { it.simpleName.getShortName() }.toList()
+            }"
+        )
 
 
         val entityClasses = resolver
             .getSymbolsWithAnnotation(MapperEntitySide::class.qualifiedName!!)
             .filterIsInstance<KSClassDeclaration>()
 
-        logger.info("Found MapperEntitySide: ${entityClasses.map { it.simpleName.getShortName() }.toList()}")
+        logger.info(
+            "Found MapperEntitySide: ${
+                entityClasses.map { it.simpleName.getShortName() }.toList()
+            }"
+        )
 
         val t = resolver
             .getSymbolsWithAnnotation(MapWith::class.qualifiedName!!)
@@ -52,16 +60,22 @@ class OrmProcessor(
         logger.info("${t.map { it.toString() }.toList()}")
 
         genMappers.forEach { genMapperKsClass ->
-            val className =  genMapperKsClass.simpleName.getShortName()
+            val className = genMapperKsClass.simpleName.getShortName()
             logger.info("$className generation started.")
-            val (dataKsClass, entityKsClass) = getDataAndEntityClassForGenMapper(dataClasses, className, entityClasses)
+            val (dataKsClass, entityKsClass) = getDataAndEntityClassForGenMapper(
+                dataClasses,
+                className,
+                entityClasses
+            )
 
-            val dataToEntityPropNamePairs = createDataEntityPropertyPairs(dataKsClass, entityKsClass, className)
+            val dataToEntityPropNamePairs =
+                createDataEntityPropertyPairs(dataKsClass, entityKsClass, className)
 
             val file = codeGenerator.createNewFile(
                 Dependencies(false),
                 OrmExtFuncGenerator.ORM_EXT_PACKAGE,
-                "${genMapperKsClass.simpleName.getShortName()}${OrmExtFuncGenerator.ORM_EXT_FILENAME}")
+                "${genMapperKsClass.simpleName.getShortName()}${OrmExtFuncGenerator.ORM_EXT_FILENAME}"
+            )
             OutputStreamWriter(file, StandardCharsets.UTF_8).use { writer ->
                 writer.write(
                     generate(
@@ -85,14 +99,16 @@ class OrmProcessor(
         entityKsClass: KSClassDeclaration,
         dataToEntityPropNamePairs: MutableList<DataEntityPropDto>,
         className: String,
-    ): String{
-        val list = mutableListOf<String>()
-        logger.info("$className: DataEntityMapperExtensionFunction started.")
-        list.add(OrmExtFuncGenerator.generateDataEntityMapperExtensionFunction(genMapperKsClass, dataKsClass, entityKsClass, dataToEntityPropNamePairs))
-        logger.info("$className: DataEntityMapperExtensionFunction ended.")
-        return list.joinToString(separator = "\n") {
-            it
-        }
+    ): String {
+        logger.info("$className: DataEntityExtensionFunction started.")
+        val fileContent = OrmExtFuncGenerator.generateDataEntityExtensionFunction(
+            genMapperKsClass,
+            dataKsClass,
+            entityKsClass,
+            dataToEntityPropNamePairs,
+        )
+        logger.info("$className: DataEntityMapperFunction ended.")
+        return fileContent
     }
 
     @OptIn(KspExperimental::class)
@@ -118,9 +134,16 @@ class OrmProcessor(
             val entityPropName = entityProps
                 .map { entityProp -> entityProp.simpleName.getShortName() }
                 .filter { entityPropName -> entityPropName == dataPropNameTarget }
-                .firstOrNull() ?: throw IllegalStateException("In $className can't map $dataPropNameReal")
+                .firstOrNull()
+                ?: throw IllegalStateException("In $className can't map $dataPropNameReal")
 
-            dataToEntityPropNamePairs.add(DataEntityPropDto(dataPropNameReal, entityPropName, mapperPath))
+            dataToEntityPropNamePairs.add(
+                DataEntityPropDto(
+                    dataPropNameReal,
+                    entityPropName,
+                    mapperPath
+                )
+            )
         }
         return dataToEntityPropNamePairs
     }
@@ -133,13 +156,15 @@ class OrmProcessor(
     ): Pair<KSClassDeclaration, KSClassDeclaration> {
         val dataKsClass = dataClasses
             .filter { declaration ->
-                declaration.getAnnotationsByType(MapperDataSide::class).first().daoClassName == className
+                declaration.getAnnotationsByType(MapperDataSide::class)
+                    .first().daoClassName == className
             }
             .firstOrNull()
             ?: throw IllegalStateException("No MapperDataSide annotation for @GenMapper $className")
         val entityKsClass = entityClasses
             .filter { declaration ->
-                declaration.getAnnotationsByType(MapperEntitySide::class).first().daoClassName == className
+                declaration.getAnnotationsByType(MapperEntitySide::class)
+                    .first().daoClassName == className
             }
             .firstOrNull()
             ?: throw IllegalStateException("No MapperEntitySide annotation for @MapperDataSide $className")
