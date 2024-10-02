@@ -4,6 +4,10 @@ import hu.bme.onlabor.dal.provideDataSource
 import hu.bme.onlabor.dal.tables
 import hu.bme.onlabor.dal.dao.user.UserDao
 import hu.bme.onlabor.enviroment.ApplicationEnv
+import hu.bme.onlabor.plugin.configureDatabases
+import hu.bme.onlabor.plugin.configureKoin
+import hu.bme.onlabor.plugin.configureRouting
+import hu.bme.onlabor.plugin.configureSerialization
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -29,39 +33,13 @@ fun main() {
 }
 
 fun Application.module() {
-    val userDao by inject<UserDao>()
-    val applicationEnv by inject<ApplicationEnv>()
     configureKoin()
     configureSerialization()
-    configureDatabases(applicationEnv)
-
-
-
-    routing {
-        get("/") {
-            call.respondText("Ktor: ${Greeting().greet()}")
-        }
-    }
+    configureDatabases()
+    configureRouting()
 }
 
-fun Application.configureKoin() {
-    install(Koin){
-        slf4jLogger()
-        modules(koinAppModule)
-    }
-}
 
-fun Application.configureSerialization() {
-    install(ContentNegotiation) {
-        json()
-    }
-}
 
-fun Application.configureDatabases(applicationEnv: ApplicationEnv) {
-    val driverClass=applicationEnv.dbDriverClass
-    val jdbcUrl=applicationEnv.dbUrl
-    val db= Database.connect(provideDataSource(jdbcUrl,driverClass))
-    transaction(db){
-        SchemaUtils.create(*tables)
-    }
-}
+
+
