@@ -10,12 +10,13 @@ class AccommodationDaoImpl: AccommodationDao {
         const val NAME = "AccommodationDaoImpl"
     }
 
-    override fun getAccommodations(): List<Accommodation> {
+    override suspend fun getAll(): List<Accommodation> {
         TODO("Not yet implemented")
     }
 
-    override fun save(accommodation: Accommodation) {
+    override suspend fun save(data: Accommodation): Accommodation? {
         TODO("Not yet implemented")
     }
+
 
 }

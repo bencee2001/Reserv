@@ -4,7 +4,4 @@ import hu.bme.onlabor.annotation.interfaces.AbstractDao
 import hu.bme.onlabor.dal.model.user.User
 
 
-interface UserDao: AbstractDao {
-    suspend fun getUsers(): List<User>
-    suspend fun save(user: User): User?
-}
+interface UserDao: AbstractDao<User>

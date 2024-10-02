@@ -1,9 +1,9 @@
 package hu.bme.onlabor
 
-import hu.bme.onlabor.dal.dbconnection.provideDataSource
+import hu.bme.onlabor.dal.provideDataSource
 import hu.bme.onlabor.dal.tables
 import hu.bme.onlabor.dal.dao.user.UserDao
-import hu.bme.onlabor.dal.model.user.User
+import hu.bme.onlabor.enviroment.ApplicationEnv
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -29,11 +29,13 @@ fun main() {
 }
 
 fun Application.module() {
+    val userDao by inject<UserDao>()
+    val applicationEnv by inject<ApplicationEnv>()
     configureKoin()
     configureSerialization()
-    configureDatabases()
+    configureDatabases(applicationEnv)
 
-    val userDao by inject<UserDao>()
+
 
     routing {
         get("/") {
@@ -55,9 +57,9 @@ fun Application.configureSerialization() {
     }
 }
 
-fun Application.configureDatabases() {
-    val driverClass="org.postgresql.Driver"
-    val jdbcUrl="jdbc:postgresql://localhost:5432/reserv?user=admin&password=1234"
+fun Application.configureDatabases(applicationEnv: ApplicationEnv) {
+    val driverClass=applicationEnv.dbDriverClass
+    val jdbcUrl=applicationEnv.dbUrl
     val db= Database.connect(provideDataSource(jdbcUrl,driverClass))
     transaction(db){
         SchemaUtils.create(*tables)

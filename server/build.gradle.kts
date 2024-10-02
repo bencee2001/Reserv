@@ -39,6 +39,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
     implementation("org.jetbrains.exposed:exposed-core:0.54.0")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.54.0")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.54.0")
+
     implementation("com.squareup:kotlinpoet:1.16.0")
 
     implementation(project(":server:orm_annotation"))

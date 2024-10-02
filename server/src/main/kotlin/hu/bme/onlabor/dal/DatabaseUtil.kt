@@ -1,4 +1,4 @@
-package hu.bme.onlabor.dal.dbconnection
+package hu.bme.onlabor.dal
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
