@@ -31,19 +31,22 @@ dependencies {
     implementation(libs.logback)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
-    implementation("io.insert-koin:koin-ktor:4.0.0")
-    implementation("io.insert-koin:koin-logger-slf4j:4.0.0")
-    implementation("org.postgresql:postgresql:42.7.3")
-    implementation("com.zaxxer:HikariCP:4.0.3")
-    implementation("io.ktor:ktor-server-content-negotiation:2.3.12")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
-    implementation("org.jetbrains.exposed:exposed-core:0.54.0")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.54.0")
-    implementation("org.jetbrains.exposed:exposed-java-time:0.54.0")
+    implementation(libs.koin.ktor)
+    implementation(libs.koin.logger.slf4j)
+    implementation(libs.postgresql)
+    implementation(libs.hikari)
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.exposed.java.time)
+    implementation(libs.ktor.server.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.utils)
 
-    implementation("io.github.smiley4:ktor-swagger-ui:2.2.0")
 
-    implementation("com.squareup:kotlinpoet:1.16.0")
+
+    implementation(libs.ktor.swagger.ui)
+
+    implementation(libs.kotlinpoet)
 
     implementation(project(":server:orm_annotation"))
     ksp(project(":server:orm_processor"))

@@ -27,6 +27,7 @@ import reserv.composeapp.generated.resources.compose_multiplatform
 @Composable
 @Preview
 fun App() {
+    val test = Test()
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -35,6 +36,9 @@ fun App() {
                 modifier = Modifier.padding(20.dp),
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center
+            )
+            Text(
+                text = test.state.value
             )
             Button(onClick = { showContent = !showContent }) {
                 Text("Click me!")
