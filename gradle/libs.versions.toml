@@ -54,6 +54,9 @@ ktor-client-auth-v300rc2 = { module = "io.ktor:ktor-client-auth", version.ref = 
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-content-negotiation-v300rc2 = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "v300" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-core-v300rc2 = { module = "io.ktor:ktor-client-core", version.ref = "v300" }
+
+ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "v300" }
 ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-okhttp-v300rc2 = { module = "io.ktor:ktor-client-okhttp", version.ref = "v300" }
@@ -62,6 +65,7 @@ ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", vers
 ktor-client-serialization-v300rc2 = { module = "io.ktor:ktor-client-serialization", version.ref = "v300" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
 ktor-swagger-ui = { module = "io.github.smiley4:ktor-swagger-ui", version.ref = "ktorSwaggerUi" }
 ktor-utils = { module = "io.ktor:ktor-utils", version.ref = "ktor" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }

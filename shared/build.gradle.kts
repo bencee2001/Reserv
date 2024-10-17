@@ -36,19 +36,22 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+            implementation(libs.ktor.client.core.v300rc2)
+            implementation("io.insert-koin:koin-core:4.0.0")
+            implementation(platform("org.kotlincrypto.hash:bom:0.5.3"))
+            implementation("org.kotlincrypto.hash:md")
         }
 
         wasmJsMain.dependencies {
-
+            implementation(libs.ktor.client.js)
         }
 
         jvmMain.dependencies {
-
+            implementation(libs.ktor.client.okhttp.v300rc2)
         }
 
         androidMain.dependencies {
-            implementation(libs.ktor.client.okhttp)
+            implementation(libs.ktor.client.okhttp.v300rc2)
         }
 
     }
@@ -65,3 +68,4 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
 }
+

@@ -1,4 +1,4 @@
-package hu.bme.onlabor.countries
+package hu.bme.onlabor.common.countries
 
 object CountryDao{
 

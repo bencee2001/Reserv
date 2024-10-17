@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +32,20 @@ fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            TextField(
+                value = test.username,
+                onValueChange = { test.username = it },
+                label = { Text("Username") }
+            )
+            TextField(
+                value = test.password,
+                onValueChange = { test.password = it },
+                label = { Text("Password") }
+            )
+            Button(onClick = { test.login() }) {
+                Text("Login")
+            }
+
             Text(
                 text = "Today's date is ${todaysDate()}",
                 modifier = Modifier.padding(20.dp),
@@ -41,7 +56,7 @@ fun App() {
                 text = test.state.value
             )
             Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+                Text(test.token.value ?: "Click me!")
             }
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }

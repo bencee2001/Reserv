@@ -27,7 +27,6 @@ sourceSets {
 }
 
 dependencies {
-    implementation(projects.shared)
     implementation(libs.logback)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
@@ -41,7 +40,12 @@ dependencies {
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.utils)
+    implementation(libs.ktor.server.cors)
 
+    implementation(platform("org.kotlincrypto.hash:bom:0.5.3"))
+    implementation("org.kotlincrypto.hash:md")
+    implementation("io.ktor:ktor-server-auth:2.3.12")
+    implementation("com.auth0:java-jwt:4.4.0")
 
 
     implementation(libs.ktor.swagger.ui)
@@ -54,3 +58,13 @@ dependencies {
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.test.junit)
 }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+

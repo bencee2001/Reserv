@@ -4,4 +4,6 @@ import hu.bme.onlabor.annotation.interfaces.AbstractDao
 import hu.bme.onlabor.dal.model.user.User
 
 
-interface UserDao: AbstractDao<User>
+interface UserDao: AbstractDao<User> {
+    suspend fun findByUsername(username: String): User?
+}

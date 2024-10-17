@@ -1,4 +1,4 @@
-package hu.bme.onlabor.countries
+package hu.bme.onlabor.common.countries
 
 data class Country(
     val id: String,         // ISO 3166-1 alpha-3

@@ -1,8 +1,12 @@
 package hu.bme.onlabor
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hu.bme.onlabor.expect.makeKtorCall
+import hu.bme.onlabor.auth.Hash
+import hu.bme.onlabor.server.getServerClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,18 +15,34 @@ import kotlinx.coroutines.launch
 
 class Test(): ViewModel() {
 
+    private val serverClient = getServerClient()
+
     private val _state = MutableStateFlow("")
     val state = _state.asStateFlow()
 
-    init {
-        load()
-    }
+    private val _token = MutableStateFlow<String?>(null)
+    val token = _token.asStateFlow()
 
-    private fun load(){
+    var username by mutableStateOf("")
+
+    var password by mutableStateOf("")
+
+
+    fun login() {
         viewModelScope.launch(Dispatchers.Default) {
-            _state.update {
-                makeKtorCall()
+            val t = serverClient.login(username, password)
+            println(t)
+            _token.update {
+                t
             }
         }
     }
+
+    fun load(){
+        viewModelScope.launch(Dispatchers.Default) {
+            val t = serverClient.getHello()
+            println(t)
+        }
+    }
 }
+
