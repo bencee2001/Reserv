@@ -1,5 +1,8 @@
 package hu.bme.onlabor.common.countries
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Country(
     val id: String,         // ISO 3166-1 alpha-3
     val name: String,       // ISO 3166-1

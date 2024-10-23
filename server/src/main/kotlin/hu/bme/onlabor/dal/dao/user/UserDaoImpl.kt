@@ -23,7 +23,7 @@ class UserDaoImpl: UserDao {
         Users.selectAll().map { resultRowToUser(it) }
     }
 
-    override suspend fun save(data: User): User? = dbQuery{
+    override suspend fun save(data: User): User? = dbQuery{ //TODO unique constraint for Username
         val cryptData = data.copy(password = Hash.crypt(data.password))
         val insertStatement = insertStatement(cryptData)
         insertStatement.resultedValues?.singleOrNull()?.let { resultRowToUser(it) }

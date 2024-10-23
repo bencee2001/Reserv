@@ -28,11 +28,4 @@ class JwtGeneratorTest {
         true
     }
 
-    @Test
-    fun getSecret(){
-        val t = Files.readString(Paths.get("../key/jwt_secret.txt"))
-        println(t)
-        true
-    }
-
 }

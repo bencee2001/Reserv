@@ -7,10 +7,10 @@ import hu.bme.onlabor.enviroment.ApplicationEnv
 import hu.bme.onlabor.enviroment.DevEnv
 import hu.bme.onlabor.security.AuthService
 import hu.bme.onlabor.security.JWTManager
-import io.ktor.server.application.Application
 import org.koin.dsl.module
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.nio.file.NoSuchFileException
 
 val koinAppModule = module {
 
@@ -27,7 +27,12 @@ val koinAppModule = module {
     }
 
     single<JWTManager>(){
-        val secret = Files.readString(Paths.get(SECRET_PATH))
+        val secret = try {
+            Files.readString(Paths.get(SECRET_PATH))
+        }catch (e: Exception) {
+            println()
+            throw NoSuchFileException("$SECRET_PATH file not found.")
+        }
         JWTManager(secret)
     }
 

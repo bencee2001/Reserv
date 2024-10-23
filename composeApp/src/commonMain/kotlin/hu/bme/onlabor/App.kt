@@ -46,11 +46,18 @@ fun App() {
                 Text("Login")
             }
 
+            Button(onClick = { test.testAuth() }) {
+                Text("Auth")
+            }
+
             Text(
                 text = "Today's date is ${todaysDate()}",
                 modifier = Modifier.padding(20.dp),
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center
+            )
+            Text(
+                text = test.auth.value ?: "asd"
             )
             Text(
                 text = test.state.value

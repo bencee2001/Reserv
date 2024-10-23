@@ -4,6 +4,7 @@ import hu.bme.onlabor.annotation.annotations.MapTo
 import hu.bme.onlabor.annotation.annotations.MapperDataSide
 import hu.bme.onlabor.annotation.annotations.MapperEntitySide
 import hu.bme.onlabor.dal.dao.reservation.ReservationDaoImpl
+import hu.bme.onlabor.util.alias.KLocalDateTime
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.datetime
@@ -16,8 +17,8 @@ data class Reservation(
     val reservationId: Int? = null,
     val userId: Int,
     val accomId: Int,
-    val startTime: LocalDateTime,
-    val endTime: LocalDateTime
+    val startTime: KLocalDateTime,
+    val endTime: KLocalDateTime
 )
 
 @MapperEntitySide(ReservationDaoImpl.NAME)

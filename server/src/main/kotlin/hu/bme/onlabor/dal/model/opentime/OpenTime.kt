@@ -4,6 +4,7 @@ import hu.bme.onlabor.annotation.annotations.MapTo
 import hu.bme.onlabor.annotation.annotations.MapperDataSide
 import hu.bme.onlabor.annotation.annotations.MapperEntitySide
 import hu.bme.onlabor.dal.dao.opentime.OpenTimeDaoImpl
+import hu.bme.onlabor.util.alias.KLocalDateTime
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.datetime
@@ -15,8 +16,8 @@ class OpenTime (
     @MapTo("id")
     val openTimeId: Int?,
     val accomId: Int,
-    val startTime: LocalDateTime,
-    val endTime: LocalDateTime
+    val startTime: KLocalDateTime,
+    val endTime: KLocalDateTime
 )
 
 @MapperEntitySide(OpenTimeDaoImpl.NAME)

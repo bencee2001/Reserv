@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
     application
+    kotlin("plugin.serialization") version "2.0.20"
     id("com.google.devtools.ksp") version "2.0.20-1.0.24"
 }
 
@@ -45,7 +46,7 @@ dependencies {
     implementation(platform("org.kotlincrypto.hash:bom:0.5.3"))
     implementation("org.kotlincrypto.hash:md")
     implementation("io.ktor:ktor-server-auth:2.3.12")
-    implementation("com.auth0:java-jwt:4.4.0")
+    implementation("io.ktor:ktor-server-auth-jwt:2.3.12")
 
 
     implementation(libs.ktor.swagger.ui)

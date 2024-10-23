@@ -23,6 +23,9 @@ class Test(): ViewModel() {
     private val _token = MutableStateFlow<String?>(null)
     val token = _token.asStateFlow()
 
+    private val _auth = MutableStateFlow<String?>(null)
+    val auth = _auth.asStateFlow()
+
     var username by mutableStateOf("")
 
     var password by mutableStateOf("")
@@ -42,6 +45,16 @@ class Test(): ViewModel() {
         viewModelScope.launch(Dispatchers.Default) {
             val t = serverClient.getHello()
             println(t)
+        }
+    }
+
+    fun testAuth() {
+        viewModelScope.launch(Dispatchers.Default) {
+            val t = serverClient.testAuth(token.value!!)
+            println(t)
+            _auth.update {
+                t
+            }
         }
     }
 }
