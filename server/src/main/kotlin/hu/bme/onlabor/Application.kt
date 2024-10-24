@@ -1,6 +1,7 @@
 package hu.bme.onlabor
 
-import hu.bme.onlabor.common.SERVER_PORT
+import hu.bme.onlabor.commondomain.SERVER_PORT
+import hu.bme.onlabor.commondomain.MyTestClass
 import hu.bme.onlabor.plugin.configureAuthenticate
 import hu.bme.onlabor.plugin.configureCors
 import hu.bme.onlabor.plugin.configureDatabases
@@ -22,6 +23,7 @@ fun main() {
 }
 
 fun Application.module() {
+    MyTestClass(1)
     configureKoin()
     configureSerialization()
     configureDatabases()

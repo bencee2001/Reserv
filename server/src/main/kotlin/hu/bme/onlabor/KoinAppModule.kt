@@ -1,6 +1,6 @@
 package hu.bme.onlabor
 
-import hu.bme.onlabor.common.SECRET_PATH
+import hu.bme.onlabor.commondomain.SECRET_PATH
 import hu.bme.onlabor.dal.dao.user.UserDao
 import hu.bme.onlabor.dal.dao.user.UserDaoImpl
 import hu.bme.onlabor.enviroment.ApplicationEnv

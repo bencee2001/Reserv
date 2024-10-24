@@ -1,4 +1,4 @@
-package hu.bme.onlabor.common.countries
+package hu.bme.onlabor.commondomain.countries
 
 import kotlinx.serialization.Serializable
 

@@ -4,7 +4,7 @@ import hu.bme.onlabor.annotation.annotations.MapTo
 import hu.bme.onlabor.annotation.annotations.MapWith
 import hu.bme.onlabor.annotation.annotations.MapperDataSide
 import hu.bme.onlabor.annotation.annotations.MapperEntitySide
-import hu.bme.onlabor.common.countries.Country
+import hu.bme.onlabor.commondomain.countries.Country
 import hu.bme.onlabor.dal.dao.accomodation.AccommodationDaoImpl
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table

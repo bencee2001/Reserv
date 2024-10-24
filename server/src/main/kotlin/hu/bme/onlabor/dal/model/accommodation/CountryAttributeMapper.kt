@@ -1,8 +1,8 @@
 package hu.bme.onlabor.dal.model.accommodation
 
 import hu.bme.onlabor.annotation.interfaces.AttributeMapper
-import hu.bme.onlabor.common.countries.Country
-import hu.bme.onlabor.common.countries.CountryDao
+import hu.bme.onlabor.commondomain.countries.Country
+import hu.bme.onlabor.commondomain.countries.CountryDao
 
 
 object CountryAttributeMapper: AttributeMapper<Country, String> {

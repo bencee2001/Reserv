@@ -40,14 +40,11 @@ kotlin {
             implementation("io.insert-koin:koin-core:4.0.0")
             implementation(platform("org.kotlincrypto.hash:bom:0.5.3"))
             implementation("org.kotlincrypto.hash:md")
+            implementation(projects.commonDomain)
         }
 
         wasmJsMain.dependencies {
             implementation(libs.ktor.client.js)
-        }
-
-        jvmMain.dependencies {
-            implementation(libs.ktor.client.okhttp.v300rc2)
         }
 
         androidMain.dependencies {

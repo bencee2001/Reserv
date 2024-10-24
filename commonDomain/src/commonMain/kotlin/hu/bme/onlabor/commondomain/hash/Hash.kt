@@ -1,4 +1,4 @@
-package hu.bme.onlabor.common
+package hu.bme.onlabor.commondomain.hash
 
 import org.kotlincrypto.hash.md.MD5
 

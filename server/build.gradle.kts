@@ -48,11 +48,11 @@ dependencies {
     implementation("io.ktor:ktor-server-auth:2.3.12")
     implementation("io.ktor:ktor-server-auth-jwt:2.3.12")
 
-
     implementation(libs.ktor.swagger.ui)
 
     implementation(libs.kotlinpoet)
 
+    implementation(projects.commonDomain)
     implementation(project(":server:orm_annotation"))
     ksp(project(":server:orm_processor"))
 
