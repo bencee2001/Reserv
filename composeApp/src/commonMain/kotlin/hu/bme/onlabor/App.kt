@@ -15,6 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import hu.bme.onlabor.navigation.login.LoginScreen
+import hu.bme.onlabor.navigation.mainlist.MainListScreen
+import hu.bme.onlabor.viewmodel.login.LoginViewModel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -29,61 +35,33 @@ import reserv.composeapp.generated.resources.compose_multiplatform
 @Preview
 fun App(
 ) {
-    val test: Test by commonDI.instance()
+    val loginViewModel by commonDI.instance<LoginViewModel>()
+    val uiState by loginViewModel.uiState
+
+    val navigator = LocalNavigator.currentOrThrow
+
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             TextField(
-                value = test.username,
-                onValueChange = { test.username = it },
+                value = uiState.username,
+                onValueChange = { loginViewModel.onUsernameChange(it) },
                 label = { Text("Username") }
             )
             TextField(
-                value = test.password,
-                onValueChange = { test.password = it },
+                value = uiState.password,
+                onValueChange = { loginViewModel.onPasswordChange(it) },
                 label = { Text("Password") }
             )
-            Button(onClick = { test.login() }) {
+            Button(
+                onClick = { loginViewModel.login { navigator.push(MainListScreen()) } }
+            ) {
                 Text("Login")
             }
-
-            Button(onClick = { test.testAuth() }) {
-                Text("Auth")
-            }
-
-            Text(
-                text = "Today's date is ${todaysDate()}",
-                modifier = Modifier.padding(20.dp),
-                fontSize = 24.sp,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = test.auth.value ?: "asd"
-            )
-            Text(
-                text = test.state.value
-            )
-            Button(onClick = { showContent = !showContent }) {
-                Text(test.token.value ?: "Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
+            if(uiState.errorMessage != null){
+                Text(
+                    text = uiState.errorMessage!!
+                )
             }
         }
     }
-}
-
-fun todaysDate(): String {
-    fun LocalDateTime.format() = toString().substringBefore('T')
-
-    val now = Clock.System.now()
-    val zone = TimeZone.currentSystemDefault()
-    return now.toLocalDateTime(zone).format()
 }

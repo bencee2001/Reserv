@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hu.bme.onlabor.server.ServerClient
+import hu.bme.onlabor.service.AuthService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +14,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class Test(
-    private val serverClient: ServerClient
+    private val serverClient: ServerClient,
+    private val authService: AuthService
 ): ViewModel() {
 
 
@@ -33,11 +35,7 @@ class Test(
 
     fun login() {
         viewModelScope.launch(Dispatchers.Default) {
-            val t = serverClient.login(username, password)
-            println(t)
-            _token.update {
-                t
-            }
+
         }
     }
 
