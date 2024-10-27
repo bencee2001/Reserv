@@ -37,10 +37,12 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.ktor.client.core.v300rc2)
-            implementation("io.insert-koin:koin-core:4.0.0")
+            implementation("org.kodein.di:kodein-di:7.22.0")
+
             implementation(platform("org.kotlincrypto.hash:bom:0.5.3"))
             implementation("org.kotlincrypto.hash:md")
             implementation(projects.commonDomain)
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
         }
 
         wasmJsMain.dependencies {

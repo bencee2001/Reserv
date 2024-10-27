@@ -5,17 +5,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hu.bme.onlabor.auth.Hash
-import hu.bme.onlabor.server.getServerClient
+import hu.bme.onlabor.server.ServerClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class Test(): ViewModel() {
+class Test(
+    private val serverClient: ServerClient
+): ViewModel() {
 
-    private val serverClient = getServerClient()
 
     private val _state = MutableStateFlow("")
     val state = _state.asStateFlow()
