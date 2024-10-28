@@ -18,7 +18,7 @@ import io.ktor.http.contentType
 class ServerClient (
     private val client: HttpClient,
     private val serverUrl: String
-) {
+): AuthClient {
 
     suspend fun getHello(): String {
         val response = client.get(serverUrl) {
@@ -29,7 +29,7 @@ class ServerClient (
         return response.body<String>()
     }
 
-    suspend fun login(username: String, password: String): BasicResponse<String> {
+    override suspend fun login(username: String, password: String): BasicResponse<String> {
         val response = client.post(serverUrl) {
             url {
                 appendPathSegments("/login")

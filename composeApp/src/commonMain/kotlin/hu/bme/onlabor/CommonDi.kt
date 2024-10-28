@@ -3,7 +3,7 @@ package hu.bme.onlabor
 import hu.bme.onlabor.server.ServerClient
 import hu.bme.onlabor.server.getServerClient
 import hu.bme.onlabor.service.AuthService
-import hu.bme.onlabor.viewmodel.login.LoginViewModel
+import hu.bme.onlabor.navigation.login.LoginViewModel
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance

@@ -59,6 +59,7 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-navigator:1.1.0-beta02")
             // Screen Model
             implementation("cafe.adriel.voyager:voyager-screenmodel:1.1.0-beta02")
+            implementation(projects.commonDomain)
         }
         wasmJsMain.dependencies {
             implementation(npm("@js-joda/timezone", "2.3.0"))

@@ -1,9 +1,10 @@
-package hu.bme.onlabor.viewmodel.login
+package hu.bme.onlabor.navigation.login
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import hu.bme.onlabor.server.AuthClient
 import hu.bme.onlabor.server.ServerClient
 import hu.bme.onlabor.service.AuthService
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val authService: AuthService,
-    private val serverClient: ServerClient
+    private val serverClient: AuthClient
 ): ViewModel() {
 
     private val _uiState = mutableStateOf(LoginUiState())
