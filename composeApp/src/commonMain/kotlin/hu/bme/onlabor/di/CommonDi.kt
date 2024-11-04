@@ -1,4 +1,4 @@
-package hu.bme.onlabor
+package hu.bme.onlabor.di
 
 import hu.bme.onlabor.server.ServerClient
 import hu.bme.onlabor.server.getServerClient
@@ -10,8 +10,6 @@ import org.kodein.di.instance
 import org.kodein.di.singleton
 
 val commonDI = DI {
-    bind<Test>() with singleton { Test(getServerClient(), instance()) }
-
     bind<AuthService>() with singleton { AuthService() }
 
     bind<LoginViewModel>() with singleton { LoginViewModel(instance(), instance()) }

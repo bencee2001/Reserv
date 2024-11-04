@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val authService: AuthService,
-    private val serverClient: AuthClient
+    private val serverClient: ServerClient
 ): ViewModel() {
 
     private val _uiState = mutableStateOf(LoginUiState())

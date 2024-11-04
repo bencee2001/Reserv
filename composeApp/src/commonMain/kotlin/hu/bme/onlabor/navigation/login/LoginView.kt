@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import hu.bme.onlabor.commonDI
+import hu.bme.onlabor.di.commonDI
 import hu.bme.onlabor.ui.common.AppFooter
 import hu.bme.onlabor.ui.common.AppHeader
 import org.kodein.di.instance
