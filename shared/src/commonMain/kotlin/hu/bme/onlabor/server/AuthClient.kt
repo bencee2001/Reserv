@@ -4,4 +4,5 @@ import hu.bme.onlabor.response.BasicResponse
 
 interface AuthClient {
     suspend fun login(username: String, password: String): BasicResponse<String>
+    suspend fun register(name: String, username: String, password: String, email: String): BasicResponse<String>
 }

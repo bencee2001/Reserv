@@ -32,6 +32,11 @@ object Users : Table() {
     val role = enumerationByName<Role>(User::role.name, 50)
     val profilePictureUrl = varchar(User::profilePictureUrl.name, 255)
 
+    init {
+        uniqueIndex("unique_username", username)
+        uniqueIndex("unique_email", email)
+    }
+
     override val primaryKey: PrimaryKey
         get() = PrimaryKey(id)
 }

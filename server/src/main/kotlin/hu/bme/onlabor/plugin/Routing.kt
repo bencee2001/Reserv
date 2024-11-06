@@ -1,5 +1,6 @@
 package hu.bme.onlabor.plugin
 
+import hu.bme.onlabor.commondomain.network.request.RegisterRequest
 import hu.bme.onlabor.dal.dao.user.UserDao
 import hu.bme.onlabor.dal.model.user.User
 import hu.bme.onlabor.security.AuthPrincipal
@@ -62,24 +63,16 @@ fun Route.register() {
 
     val userDao by inject<UserDao>()
 
-    post("/register",{
-        request {
-            body<RegisterRequest>{
-                description = "User with username and password"
-                required = true
-
-                example("First", RegisterRequest(name = "Test Elek", username = "Arjun", email = "asd@gmail.com", password = "password")) {
-                    description = "A longer description of the example"
-                    summary = "Default login credential to get token"
-                }
-            }
-        }
-
-    }) {
+    post("/register") {
         val request = call.receive<RegisterRequest>()
-        if (request.email.isBlank() || request.username.isBlank() || request.password.isBlank()) {
+        if (request.name.isBlank() || request.email.isBlank() || request.username.isBlank() || request.password.isBlank()) {
             call.respond(HttpStatusCode.BadRequest, "Username or Password can not be empty.")
             return@post
+        }
+        if(userDao.findByUsername(request.username) != null) {
+            call.respond(HttpStatusCode.Conflict, "Username already exists.")
+        } else if (userDao.findByEmail(request.email) != null) {
+            call.respond(HttpStatusCode.Conflict, "User with this Email already exists.")
         }
         val savedUser = userDao.save(
             User(
@@ -96,11 +89,3 @@ fun Route.register() {
         }
     }
 }
-
-@Serializable
-data class RegisterRequest(
-    val name: String,
-    val email: String,
-    val username: String,
-    val password: String
-)

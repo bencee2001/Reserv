@@ -5,6 +5,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import hu.bme.onlabor.navigation.mainlist.MainListScreen
+import hu.bme.onlabor.navigation.register.RegisterScreen
 
 
 class LoginScreen: Screen {
@@ -13,7 +14,8 @@ class LoginScreen: Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         LoginView(
-            loginNavigate = { navigator.push(MainListScreen()) }
+            loginNavigate = { navigator.push(MainListScreen()) },
+            registerNavigate = { navigator.push(RegisterScreen())}
         )
     }
 }

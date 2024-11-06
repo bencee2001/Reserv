@@ -43,6 +43,8 @@ kotlin {
             implementation("org.kotlincrypto.hash:md")
             implementation(projects.commonDomain)
             implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
+            implementation("io.ktor:ktor-client-content-negotiation:3.0.0-rc-2")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.0-rc-2")
         }
 
         wasmJsMain.dependencies {

@@ -1,5 +1,6 @@
 package hu.bme.onlabor.server
 
+import hu.bme.onlabor.commondomain.network.request.RegisterRequest
 import hu.bme.onlabor.response.BasicResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -39,6 +40,27 @@ class ServerClient (
                 append("username", username)
                 append("password", password)
             }))
+        }
+        val status = response.status.value
+        val bodyMessage = response.body<String>()
+        return BasicResponse(status, bodyMessage)
+    }
+
+    override suspend fun register(
+        name: String,
+        username: String,
+        password: String,
+        email: String
+    ): BasicResponse<String> {
+        val request = RegisterRequest(
+            name, email, username, password
+        )
+        val response = client.post(serverUrl) {
+            url {
+                appendPathSegments("/register")
+            }
+            contentType(ContentType.Application.Json)
+            setBody(request)
         }
         val status = response.status.value
         val bodyMessage = response.body<String>()

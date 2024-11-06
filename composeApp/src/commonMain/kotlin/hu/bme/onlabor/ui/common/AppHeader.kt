@@ -6,9 +6,11 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun AppHeader(
-    showUserIcon: Boolean
+    showUserIcon: Boolean,
+    rightSide: @Composable () -> Unit = {}
 ) {
     TopAppBar(
         title = { Text(text = "Header Title") },
+        actions = { rightSide() }
     )
 }
