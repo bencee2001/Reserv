@@ -60,6 +60,7 @@ kotlin {
             // Screen Model
             implementation("cafe.adriel.voyager:voyager-screenmodel:1.1.0-beta02")
             implementation(projects.commonDomain)
+            implementation(libs.ktor.client.core.v300rc2)
         }
         wasmJsMain.dependencies {
             implementation(npm("@js-joda/timezone", "2.3.0"))

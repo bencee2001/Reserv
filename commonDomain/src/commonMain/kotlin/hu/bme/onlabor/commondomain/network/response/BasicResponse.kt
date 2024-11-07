@@ -1,4 +1,4 @@
-package hu.bme.onlabor.response
+package hu.bme.onlabor.commondomain.network.response
 
 data class BasicResponse<T>(
     val status: Int,

@@ -3,6 +3,8 @@ package hu.bme.onlabor.dal.model.user
 import hu.bme.onlabor.annotation.annotations.MapTo
 import hu.bme.onlabor.annotation.annotations.MapperDataSide
 import hu.bme.onlabor.annotation.annotations.MapperEntitySide
+import hu.bme.onlabor.commondomain.model.Role
+import hu.bme.onlabor.commondomain.model.UserLevel
 import hu.bme.onlabor.dal.dao.user.UserDaoImpl
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table

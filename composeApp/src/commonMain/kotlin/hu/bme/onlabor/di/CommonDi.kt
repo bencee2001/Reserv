@@ -6,15 +6,12 @@ import hu.bme.onlabor.service.AuthService
 import hu.bme.onlabor.navigation.login.LoginViewModel
 import hu.bme.onlabor.navigation.register.RegisterViewModel
 import hu.bme.onlabor.server.AuthClient
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.instance
-import org.kodein.di.singleton
+import org.kodein.di.*
 
 val commonDI = DI {
     bind<AuthService>() with singleton { AuthService() }
 
-    bind<LoginViewModel>() with singleton { LoginViewModel(instance(), instance()) }
+    bind<LoginViewModel>() with factory { LoginViewModel(instance(), instance()) }
 
     bind<RegisterViewModel>() with singleton { RegisterViewModel(instance()) }
 

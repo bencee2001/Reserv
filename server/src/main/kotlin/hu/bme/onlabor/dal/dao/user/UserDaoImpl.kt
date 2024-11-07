@@ -1,7 +1,7 @@
 package hu.bme.onlabor.dal.dao.user
 
 import hu.bme.onlabor.annotation.annotations.GenMapper
-import hu.bme.onlabor.commondomain.hash.Hash
+import hu.bme.onlabor.commondomain.model.UserLevel
 import hu.bme.onlabor.dal.dbQuery
 import hu.bme.onlabor.dal.model.user.User
 import hu.bme.onlabor.dal.model.user.Users
@@ -39,5 +39,13 @@ class UserDaoImpl: UserDao {
             .where { Users.email eq email }
             .singleOrNull()
         userEntity?.let { resultRowToUser(it) }
+    }
+
+    override suspend fun getUserLevelForUsername(username: String): UserLevel = dbQuery {
+        Users
+            .selectAll()
+            .where { Users.username eq username }
+            .map { it[Users.userLevel] }
+            .single()
     }
 }

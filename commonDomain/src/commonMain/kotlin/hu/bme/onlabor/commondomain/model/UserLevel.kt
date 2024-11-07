@@ -1,4 +1,4 @@
-package hu.bme.onlabor.dal.model.user
+package hu.bme.onlabor.commondomain.model
 
 enum class UserLevel {
     NORMAL,

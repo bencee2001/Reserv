@@ -19,8 +19,10 @@ data class Accommodation(
     @MapWith(CountryAttributeMapper.PATH)
     var country: Country,
     var city: String,
-    var latitude: Long,
-    var longitude: Long,
+    var address: String,
+    var mainPictureUrl: String,
+    var latitude: Double,
+    var longitude: Double,
     var ratingAvg: Double,
     var ratingCount: Int
 )
@@ -32,8 +34,10 @@ object Accommodations: Table() {
     val ownerId = integer(Accommodation::ownerId.name)
     val country = varchar(Accommodation::country.name, 3)
     val city = varchar(Accommodation::city.name, 100)
-    val latitude = long(Accommodation::latitude.name)
-    val longitude = long(Accommodation::longitude.name)
+    val address = varchar(Accommodation::address.name, 255)
+    val mainPictureUrl = varchar(Accommodation::mainPictureUrl.name, 255)
+    val latitude = double(Accommodation::latitude.name)
+    val longitude = double(Accommodation::longitude.name)
     val ratingAvg = double(Accommodation::ratingAvg.name)
     val ratingCount = integer(Accommodation::ratingCount.name)
 

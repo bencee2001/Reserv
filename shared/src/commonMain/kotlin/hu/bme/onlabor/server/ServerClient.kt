@@ -1,7 +1,8 @@
 package hu.bme.onlabor.server
 
 import hu.bme.onlabor.commondomain.network.request.RegisterRequest
-import hu.bme.onlabor.response.BasicResponse
+import hu.bme.onlabor.commondomain.network.response.AuthResponse
+import hu.bme.onlabor.commondomain.network.response.BasicResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.FormDataContent
@@ -9,7 +10,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
-import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.*
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.Parameters
@@ -30,10 +31,10 @@ class ServerClient (
         return response.body<String>()
     }
 
-    override suspend fun login(username: String, password: String): BasicResponse<String> {
+    override suspend fun login(username: String, password: String): HttpResponse {
         val response = client.post(serverUrl) {
             url {
-                appendPathSegments("/login")
+                appendPathSegments("/auth/login")
             }
             contentType(ContentType.Application.FormUrlEncoded)
             setBody(FormDataContent(Parameters.build {
@@ -41,9 +42,7 @@ class ServerClient (
                 append("password", password)
             }))
         }
-        val status = response.status.value
-        val bodyMessage = response.body<String>()
-        return BasicResponse(status, bodyMessage)
+        return response
     }
 
     override suspend fun register(
@@ -57,7 +56,7 @@ class ServerClient (
         )
         val response = client.post(serverUrl) {
             url {
-                appendPathSegments("/register")
+                appendPathSegments("/auth/register")
             }
             contentType(ContentType.Application.Json)
             setBody(request)

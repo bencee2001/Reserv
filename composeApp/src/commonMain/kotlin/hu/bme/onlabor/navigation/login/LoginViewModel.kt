@@ -5,8 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hu.bme.onlabor.commondomain.hash.cryptPassword
+import hu.bme.onlabor.commondomain.network.response.AuthResponse
 import hu.bme.onlabor.server.AuthClient
 import hu.bme.onlabor.service.AuthService
+import io.ktor.client.call.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -32,12 +34,12 @@ class LoginViewModel(
         if(username.isNotBlank() && password.isNotBlank()){
             viewModelScope.launch(Dispatchers.Default) {
                 val response = authClient.login(username, password.cryptPassword())
-                when (response.status) {
+                when (response.status.value) {
                     200 -> {
-                        authService.setAuthToken(response.bodyMessage)
+                        authService.setAuth(response.body<AuthResponse>())
                         navigateTo()
                     }
-                    else -> { _uiState.value = _uiState.value.copy(errorMessage =  response.bodyMessage)}
+                    else -> { _uiState.value = _uiState.value.copy(errorMessage =  response.body<String>())}
                 }
             }
         } else {
