@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -49,14 +48,14 @@ fun AccommodationCard(accom: AccommodationCardData){
                     .padding(4.dp)
             ) {
                 Text(
-                    text = "Hello Bello",
+                    text = accom.name,
                     fontSize = 18.sp,
                     color = Color.Black,
                     modifier = Modifier.padding(start = 16.dp)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "NoWhere",
+                    text = accom.city,
                     fontSize = 14.sp,
                     color = Color.Black,
                     modifier = Modifier.padding(start = 16.dp)

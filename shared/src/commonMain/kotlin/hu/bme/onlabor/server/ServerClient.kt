@@ -81,8 +81,9 @@ class ServerClient (
     override suspend fun getAccommodations(token: String): HttpResponse {
         return client.get(serverUrl) {
             url {
-                appendPathSegments("/accommodations/all")
+                appendPathSegments("/accommodation/all")
             }
+            contentType(ContentType.Application.Json)
             headers {
                 append(HttpHeaders.Authorization, "Bearer $token")
             }

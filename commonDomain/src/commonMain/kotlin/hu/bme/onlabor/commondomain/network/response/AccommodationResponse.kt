@@ -2,7 +2,9 @@ package hu.bme.onlabor.commondomain.network.response
 
 import hu.bme.onlabor.commondomain.countries.CountriesProvider
 import hu.bme.onlabor.commondomain.countries.Country
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class AccommodationResponse(
     val name: String,
     val ownerId: Int,
