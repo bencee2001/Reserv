@@ -8,19 +8,25 @@ import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import hu.bme.onlabor.di.commonDI
 import hu.bme.onlabor.model.AccommodationCardData
 import hu.bme.onlabor.ui.accommodation.AccommodationList
 import hu.bme.onlabor.ui.accommodation.AccommodationListLayout
 import hu.bme.onlabor.ui.common.AppFooter
 import hu.bme.onlabor.ui.common.AppHeader
+import org.kodein.di.instance
 import kotlin.contracts.contract
 
 @Composable
 fun MainListView(
     loginNavigate: () -> Unit,
 ) {
+    val mainListViewModel by commonDI.instance<MainListViewModel>()
+    val accommodations = mainListViewModel.accommodations.collectAsState().value
+
     MainListLayout(
         appHeader = {
             AppHeader(false) {
@@ -33,18 +39,7 @@ fun MainListView(
             }
         },
         list = {
-            AccommodationList(
-                listOf(
-                    AccommodationCardData(),
-                    AccommodationCardData(),
-                    AccommodationCardData(),
-                    AccommodationCardData(),
-                    AccommodationCardData(),
-                    AccommodationCardData(),
-                    AccommodationCardData(),
-                    AccommodationCardData()
-                )
-            )
+            AccommodationList(accommodations)
         },
         appFooter = {
             AppFooter()

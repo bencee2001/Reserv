@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import hu.bme.onlabor.commondomain.hash.cryptPassword
 import hu.bme.onlabor.commondomain.network.response.AuthResponse
 import hu.bme.onlabor.server.AuthClient
-import hu.bme.onlabor.service.AuthService
+import hu.bme.onlabor.service.auth.AuthService
 import io.ktor.client.call.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

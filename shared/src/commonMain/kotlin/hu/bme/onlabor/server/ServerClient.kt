@@ -20,7 +20,7 @@ import io.ktor.http.contentType
 class ServerClient (
     private val client: HttpClient,
     private val serverUrl: String
-): AuthClient {
+): AuthClient, AccommodationClient {
 
     suspend fun getHello(): String {
         val response = client.get(serverUrl) {
@@ -76,5 +76,16 @@ class ServerClient (
             }
         }
         return response.body<String>()
+    }
+
+    override suspend fun getAccommodations(token: String): HttpResponse {
+        return client.get(serverUrl) {
+            url {
+                appendPathSegments("/accommodations/all")
+            }
+            headers {
+                append(HttpHeaders.Authorization, "Bearer $token")
+            }
+        }
     }
 }

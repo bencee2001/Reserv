@@ -1,6 +1,8 @@
 package hu.bme.onlabor
 
 import hu.bme.onlabor.commondomain.SECRET_PATH
+import hu.bme.onlabor.dal.dao.accomodation.AccommodationDao
+import hu.bme.onlabor.dal.dao.accomodation.AccommodationDaoImpl
 import hu.bme.onlabor.dal.dao.user.UserDao
 import hu.bme.onlabor.dal.dao.user.UserDaoImpl
 import hu.bme.onlabor.enviroment.ApplicationEnv
@@ -20,6 +22,10 @@ val koinAppModule = module {
 
     single<UserDao> {
         UserDaoImpl()
+    }
+
+    single<AccommodationDao> {
+        AccommodationDaoImpl()
     }
 
     single<AuthService> {

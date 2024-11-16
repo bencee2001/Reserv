@@ -1,5 +1,6 @@
 package hu.bme.onlabor.plugin
 
+import hu.bme.onlabor.routing.AccommodationRouting.accommodationRouting
 import hu.bme.onlabor.routing.AuthRouting.authRouting
 import hu.bme.onlabor.routing.TestRouting.testRouting
 import io.ktor.server.application.Application
@@ -10,6 +11,7 @@ fun Application.configureRouting() {
     routing {
         authRouting()
         testRouting()
+        accommodationRouting()
     }
 
 }

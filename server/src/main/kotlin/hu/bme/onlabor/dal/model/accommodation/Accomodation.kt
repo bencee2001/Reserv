@@ -5,6 +5,7 @@ import hu.bme.onlabor.annotation.annotations.MapWith
 import hu.bme.onlabor.annotation.annotations.MapperDataSide
 import hu.bme.onlabor.annotation.annotations.MapperEntitySide
 import hu.bme.onlabor.commondomain.countries.Country
+import hu.bme.onlabor.commondomain.network.response.AccommodationResponse
 import hu.bme.onlabor.dal.dao.accomodation.AccommodationDaoImpl
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table
@@ -20,7 +21,7 @@ data class Accommodation(
     var country: Country,
     var city: String,
     var address: String,
-    var mainPictureUrl: String,
+    var mainImageUrl: String,
     var latitude: Double,
     var longitude: Double,
     var ratingAvg: Double,
@@ -35,7 +36,7 @@ object Accommodations: Table() {
     val country = varchar(Accommodation::country.name, 3)
     val city = varchar(Accommodation::city.name, 100)
     val address = varchar(Accommodation::address.name, 255)
-    val mainPictureUrl = varchar(Accommodation::mainPictureUrl.name, 255)
+    val mainImageUrl = varchar(Accommodation::mainImageUrl.name, 255)
     val latitude = double(Accommodation::latitude.name)
     val longitude = double(Accommodation::longitude.name)
     val ratingAvg = double(Accommodation::ratingAvg.name)
@@ -43,4 +44,17 @@ object Accommodations: Table() {
 
     override val primaryKey: PrimaryKey
         get() = PrimaryKey(Accommodations.id)
+}
+
+fun Accommodation.toResponse(): AccommodationResponse{
+    return AccommodationResponse(
+        name = this.name,
+        ownerId = this.ownerId,
+        country = this.country,
+        mainImageUrl = this.mainImageUrl,
+        city = this.city,
+        address = this.address,
+        ratingAvg = this.ratingAvg,
+        ratingCount = this.ratingCount
+    )
 }

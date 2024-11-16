@@ -47,10 +47,6 @@ kotlin {
             implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.0-rc-2")
         }
 
-        wasmJsMain.dependencies {
-            implementation(libs.ktor.client.js)
-        }
-
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp.v300rc2)
         }

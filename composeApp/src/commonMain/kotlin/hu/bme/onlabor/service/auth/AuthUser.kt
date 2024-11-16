@@ -1,4 +1,4 @@
-package hu.bme.onlabor.service
+package hu.bme.onlabor.service.auth
 
 import hu.bme.onlabor.commondomain.model.Role
 import hu.bme.onlabor.commondomain.model.UserLevel
