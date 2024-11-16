@@ -42,6 +42,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp.v300rc2)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -61,9 +62,14 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-screenmodel:1.1.0-beta02")
             implementation(projects.commonDomain)
             implementation(libs.ktor.client.core.v300rc2)
+            implementation("io.coil-kt.coil3:coil:3.0.0")
+            implementation("io.coil-kt.coil3:coil-compose-core:3.0.0")
+            implementation("io.coil-kt.coil3:coil-compose:3.0.0")
+            implementation("io.coil-kt.coil3:coil-network-ktor3:3.0.0")
         }
         wasmJsMain.dependencies {
             implementation(npm("@js-joda/timezone", "2.3.0"))
+            implementation(libs.ktor.client.js)
         }
     }
 }
