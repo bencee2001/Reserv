@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import hu.bme.onlabor.model.AccommodationCardData
 import hu.bme.onlabor.ui.accommodation.AccommodationList
+import hu.bme.onlabor.ui.accommodation.AccommodationListLayout
 import hu.bme.onlabor.ui.common.AppFooter
 import hu.bme.onlabor.ui.common.AppHeader
 import kotlin.contracts.contract
