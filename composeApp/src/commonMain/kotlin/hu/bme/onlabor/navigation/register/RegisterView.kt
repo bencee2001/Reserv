@@ -30,8 +30,6 @@ fun RegisterView(
 
     val registerViewModel by commonDI.instance<RegisterViewModel>()
     val uiState by registerViewModel.uiState
-    val snackBarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar =  {
@@ -80,9 +78,6 @@ fun RegisterView(
                     Button(
                         onClick = {
                             registerViewModel.register {
-                                coroutineScope.launch {
-                                    snackBarHostState.showSnackbar("Registration successful!")
-                                }
                                 backToLoginNavigate()
                             }
                         }

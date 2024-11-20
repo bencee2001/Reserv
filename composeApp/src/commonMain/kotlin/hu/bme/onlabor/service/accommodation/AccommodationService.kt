@@ -7,8 +7,8 @@ import hu.bme.onlabor.service.auth.AuthService
 import io.ktor.client.call.*
 
 class AccommodationService(
-    val accommodationClient: AccommodationClient,
-    val authService: AuthService
+    private val accommodationClient: AccommodationClient,
+    private val authService: AuthService
 ) {
     private var accommodations: List<AccommodationCardData>? = null
     private var ownAccommodations: List<AccommodationCardData>? = null
@@ -23,7 +23,15 @@ class AccommodationService(
         return accommodations!!
     }
 
-    fun getAccommodation(): List<AccommodationCardData> {
-        return emptyList()
+    suspend fun loadOwnAccommodation(): List<AccommodationCardData> {
+        if (ownAccommodations == null) {
+            val token = authService.getAuthToken()
+            val userId = authService.getAuthUser().id
+            val response = accommodationClient.getOwnAccommodations(token, userId)
+            val accommodationResponses = response.body<AccommodationsResponse>()
+            val accommodationDataList = accommodationResponses.accommodationResponses.map { AccommodationCardData(it) }
+            ownAccommodations = accommodationDataList
+        }
+        return ownAccommodations!!
     }
 }

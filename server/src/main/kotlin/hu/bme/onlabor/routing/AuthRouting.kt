@@ -36,6 +36,7 @@ object AuthRouting {
                 val token = jwtManager.generateJWT(principal)
                 val user = userDao.findByUsername(principal.username)!!
                 val authResponse = AuthResponse(
+                    userId = user.userId!!,
                     name = user.name,
                     username = user.username,
                     email = user.email,

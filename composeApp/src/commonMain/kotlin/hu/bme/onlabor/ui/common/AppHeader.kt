@@ -11,6 +11,6 @@ fun AppHeader(
 ) {
     TopAppBar(
         title = { Text(text = "Header Title") },
-        actions = { rightSide() }
+        actions = { rightSide() },
     )
 }

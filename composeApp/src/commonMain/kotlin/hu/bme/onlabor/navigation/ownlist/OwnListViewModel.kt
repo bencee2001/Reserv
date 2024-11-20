@@ -1,32 +1,25 @@
-package hu.bme.onlabor.navigation.mainlist
+package hu.bme.onlabor.navigation.ownlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hu.bme.onlabor.model.AccommodationCardData
 import hu.bme.onlabor.service.accommodation.AccommodationService
-import hu.bme.onlabor.service.auth.AuthService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class MainListViewModel(
+class OwnListViewModel(
     private val accommodationService: AccommodationService,
-    private val authService: AuthService
 ): ViewModel() {
 
     private val _accommodations = MutableStateFlow<List<AccommodationCardData>>(emptyList())
     val accommodations = _accommodations.asStateFlow()
-    val userRole = authService.getRole()
 
     init {
         viewModelScope.launch(Dispatchers.Default) {
-            _accommodations.value = accommodationService.loadAccommodation()
+            _accommodations.value = accommodationService.loadOwnAccommodation()
         }
     }
 
-    fun logout(toLogin: () -> Unit) {
-        authService.clear()
-        toLogin()
-    }
 }

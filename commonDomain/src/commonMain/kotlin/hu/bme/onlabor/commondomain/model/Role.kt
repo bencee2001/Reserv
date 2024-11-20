@@ -2,6 +2,6 @@ package hu.bme.onlabor.commondomain.model
 
 enum class Role {
     ADMIN,
-    HOST,
+    OWNER,
     SIMPLE_USER,
 }

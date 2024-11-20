@@ -1,31 +1,23 @@
-package hu.bme.onlabor.navigation.mainlist
+package hu.bme.onlabor.navigation.ownlist
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import hu.bme.onlabor.di.commonDI
-import hu.bme.onlabor.model.AccommodationCardData
 import hu.bme.onlabor.ui.accommodation.AccommodationContentLayout
 import hu.bme.onlabor.ui.accommodation.AccommodationListLayout
 import hu.bme.onlabor.ui.common.AppFooter
-import hu.bme.onlabor.ui.common.AppHeader
-import hu.bme.onlabor.util.AuthUtil
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import org.kodein.di.instance
-import kotlin.contracts.contract
 
 @Composable
-fun MainListView(
-    loginNavigate: () -> Unit,
-    ownListNavigate: () -> Unit,
+fun OwnListView(
+    backToSearch: () -> Unit,
 ) {
-    val mainListViewModel by commonDI.instance<MainListViewModel>()
-    val accommodations = mainListViewModel.accommodations.collectAsState().value
+
+    val ownListViewModel by commonDI.instance<OwnListViewModel>()
+    val accommodations = ownListViewModel.accommodations.collectAsState().value
 
     var isMenuExpanded by remember { mutableStateOf(false) }
 
@@ -42,13 +34,8 @@ fun MainListView(
                             expanded = isMenuExpanded,
                             onDismissRequest = { isMenuExpanded = false }
                         ) {
-                            if(AuthUtil.isNotSimpleUser(mainListViewModel.userRole)) {
-                                DropdownMenuItem(onClick = { ownListNavigate() }) {
-                                    Text("Own Accommodations")
-                                }
-                            }
-                            DropdownMenuItem(onClick = { mainListViewModel.logout { loginNavigate() } }) {
-                                Text("Logout")
+                            DropdownMenuItem(onClick = { backToSearch() }) {
+                                Text("Back to Search")
                             }
                         }
                     }

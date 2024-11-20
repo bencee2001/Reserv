@@ -1,5 +1,6 @@
 package hu.bme.onlabor.plugin
 
+import hu.bme.onlabor.commondomain.model.Role
 import hu.bme.onlabor.security.AuthService
 import hu.bme.onlabor.security.AuthType
 import hu.bme.onlabor.security.JWTManager
@@ -28,14 +29,24 @@ fun Application.configureAuthenticate(){
                 call.respond(HttpStatusCode.Unauthorized, "Credentials are not valid")
             }
         }
-        jwt("auth-jwt-all"){
+        jwt(AuthType.AUTH_JWT_ALL._name) {
             realm = "all_user"
             verifier(jwtManager.verifier)
             validate { jwtCredential ->
-                authService.validateJwtCredentialAll(jwtCredential)
+                authService.validateJwtCredential(jwtCredential)
             }
             challenge { defaultScheme, realm ->
-                call.respond(HttpStatusCode.Unauthorized, "Token is not valid or has expired")
+                call.respond(HttpStatusCode.Unauthorized, "Token is not valid or has expired.")
+            }
+        }
+        jwt(AuthType.AUTH_JWT_OWNER._name) {
+            realm = "owner_user"
+            verifier(jwtManager.verifier)
+            validate { jwtCredential ->
+                authService.validateJwtCredential(jwtCredential, Role.OWNER)
+            }
+            challenge { defaultScheme, realm ->
+                call.respond(HttpStatusCode.Unauthorized, "Token is not valid or has expired or do not have Owner status.")
             }
         }
     }
